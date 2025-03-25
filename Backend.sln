@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{7B831302-194F-49F3-AC19-D238E209FF2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{819DEAA4-98F7-414D-8D22-515B4294E6C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FDF89723-164A-4E6B-A69E-84B00914A187}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth", "Auth\Auth.csproj", "{CBD96B03-9521-42C4-910C-A1DF4941DD71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBD96B03-9521-42C4-910C-A1DF4941DD71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBD96B03-9521-42C4-910C-A1DF4941DD71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBD96B03-9521-42C4-910C-A1DF4941DD71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBD96B03-9521-42C4-910C-A1DF4941DD71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBD96B03-9521-42C4-910C-A1DF4941DD71} = {FDF89723-164A-4E6B-A69E-84B00914A187}
+	EndGlobalSection
+EndGlobal
