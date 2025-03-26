@@ -10,10 +10,7 @@ namespace Auth.Mappings
         public AutoMapperProfiles()
         {
             CreateMap<RegisterRequestDto, ApplicationUser>().ReverseMap();
-            CreateMap<ApplicationUserDto, RegisterRequestDto>().ReverseMap();
-            CreateMap<ApplicationUser, ApplicationUserDto>().ReverseMap();
             CreateMap<ApplicationUser, LoginResponseDto>().ReverseMap();
         }
-
     }
 }

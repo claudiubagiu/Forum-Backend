@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using System.Reflection.Emit;
+using System.Reflection.Metadata;
 
 namespace Auth.Data
 {
@@ -38,6 +40,79 @@ namespace Auth.Data
             };
 
             builder.Entity<IdentityRole>().HasData(roles);
+
+
+            builder.Entity<Post>()
+                   .HasMany(e => e.Tags)
+                   .WithMany(e => e.Posts);
+
+            builder.Entity<Post>()
+                   .HasMany(e => e.Votes)
+                   .WithOne(e => e.Post)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Post>()
+                   .HasOne(e => e.Image)
+                   .WithOne(e => e.Post)
+                   .HasForeignKey<ImagePost>(e => e.PostId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Post>()
+                   .HasMany(e => e.Comments)
+                   .WithOne(e => e.Post)
+                   .HasForeignKey(e => e.PostId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Post>()
+                   .Property(e => e.Status)
+                   .HasConversion<string>();
+
+            builder.Entity<Comment>()
+                   .HasMany(e => e.Votes)
+                   .WithOne(e => e.Comment)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Comment>()
+                   .HasOne(e => e.Image)
+                   .WithOne(e => e.Comment)
+                   .HasForeignKey<ImageComment>(e => e.CommentId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<ApplicationUser>()
+                   .HasMany(e => e.Comments)
+                   .WithOne(e => e.User)
+                   .HasForeignKey(e => e.UserId)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<ApplicationUser>()
+                   .HasMany(e => e.VotesComments)
+                   .WithOne(e => e.User)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<ApplicationUser>()
+                   .HasMany(e => e.VotesPosts)
+                   .WithOne(e => e.User)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<ApplicationUser>()
+                   .HasMany(e => e.Posts)
+                   .WithOne(e => e.User)
+                   .HasForeignKey(e => e.UserId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<ApplicationUser>()
+                   .HasOne(e => e.Ban)
+                   .WithOne(e => e.User)
+                   .HasForeignKey<Ban>(e => e.UserId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<VotePost>()
+                   .Property(e => e.Type)
+                   .HasConversion<string>();
+
+            builder.Entity<VoteComment>()
+                   .Property(e => e.Type)
+                   .HasConversion<string>();
         }
     }
 }

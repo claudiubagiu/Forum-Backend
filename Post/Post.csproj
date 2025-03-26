@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\Domain\" />
+    <Folder Include="Models\DTOs\" />
+    <Folder Include="Mappings\" />
+    <Folder Include="Data\" />
+    <Folder Include="Repositories\Interface\" />
+    <Folder Include="Repositories\Implementation\" />
+    <Folder Include="Services\Implementation\" />
+    <Folder Include="Services\Interface\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vote\Vote.csproj" />
+  </ItemGroup>
+
+</Project>
