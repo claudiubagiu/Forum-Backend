@@ -21,9 +21,17 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<BackendDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("BackendConnectionString")));
 
+//Auth
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IApplicationUserRepository, SQLApplicationUserRepository>();
+//Post
+builder.Services.AddScoped<IPostRepository, SQLPostRepository>();
+builder.Services.AddScoped<IPostService, PostService>();
+//Comment
+builder.Services.AddScoped<ICommentRepository, SQLCommentRepository>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 

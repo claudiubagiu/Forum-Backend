@@ -2,7 +2,7 @@
 
 namespace Auth.Models.Domain
 {
-    public abstract class Image
+    public class Image
     {
         public required Guid Id { get; set; }
         [NotMapped]
@@ -12,6 +12,10 @@ namespace Auth.Models.Domain
         public required string FileExtension { get; set; }
         public required long FileSizeInBytes { get; set; }
         public required string FilePath { get; set; }
+        public Guid? CommentId { get; set; }
+        public Comment? Comment { get; set; }
+        public Guid? PostId { get; set; }
+        public Post? Post { get; set; }
 
     }
 }

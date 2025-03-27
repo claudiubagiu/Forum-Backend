@@ -14,6 +14,14 @@ namespace Auth.Data
         {
         }
 
+        public DbSet<Post> Post { get; set; }
+        public DbSet<Comment> Comment { get; set; }
+        public DbSet<Tag> Tag { get; set; }
+        public DbSet<Vote> Vote { get; set; }
+        public DbSet<Image> Image { get; set; }
+        public DbSet<Ban> Ban { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -49,13 +57,13 @@ namespace Auth.Data
             builder.Entity<Post>()
                    .HasMany(e => e.Votes)
                    .WithOne(e => e.Post)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Post>()
                    .HasOne(e => e.Image)
                    .WithOne(e => e.Post)
-                   .HasForeignKey<ImagePost>(e => e.PostId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .HasForeignKey<Image>(e => e.PostId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Post>()
                    .HasMany(e => e.Comments)
@@ -70,13 +78,19 @@ namespace Auth.Data
             builder.Entity<Comment>()
                    .HasMany(e => e.Votes)
                    .WithOne(e => e.Comment)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Comment>()
                    .HasOne(e => e.Image)
                    .WithOne(e => e.Comment)
-                   .HasForeignKey<ImageComment>(e => e.CommentId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .HasForeignKey<Image>(e => e.CommentId)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Comment>()
+                   .HasMany(e => e.ChildrenComments)
+                   .WithOne()
+                   .HasForeignKey(e => e.CommentId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<ApplicationUser>()
                    .HasMany(e => e.Comments)
@@ -85,12 +99,7 @@ namespace Auth.Data
                    .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<ApplicationUser>()
-                   .HasMany(e => e.VotesComments)
-                   .WithOne(e => e.User)
-                   .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<ApplicationUser>()
-                   .HasMany(e => e.VotesPosts)
+                   .HasMany(e => e.Votes)
                    .WithOne(e => e.User)
                    .OnDelete(DeleteBehavior.NoAction);
 
@@ -106,11 +115,7 @@ namespace Auth.Data
                    .HasForeignKey<Ban>(e => e.UserId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<VotePost>()
-                   .Property(e => e.Type)
-                   .HasConversion<string>();
-
-            builder.Entity<VoteComment>()
+            builder.Entity<Vote>()
                    .Property(e => e.Type)
                    .HasConversion<string>();
         }
